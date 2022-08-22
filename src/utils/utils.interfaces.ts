@@ -1,5 +1,5 @@
 export interface SimulateInvestmentParams {
-  Selic: string;
+  selic: number;
   value: string;
   period: string;
 }

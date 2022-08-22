@@ -1,4 +1,4 @@
-import { HStack, Text, VStack } from "@chakra-ui/react";
+import { HStack, Spinner, Text, VStack } from "@chakra-ui/react";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -12,10 +12,16 @@ import Input from "../../components/Input";
 import { useAuth } from "../../providers/Authentication";
 import { SimulationData } from "./home.interfaces";
 import { useInvestment } from "../../providers/Investment";
+import { useEffect } from "react";
 
 const Home = () => {
   const { user, handleLogout } = useAuth();
-  const { submitSimulation, selic, normalizeStates } = useInvestment();
+  const { submitSimulation, selic, normalizeStates, loading, getSelic } =
+    useInvestment();
+
+  useEffect(() => {
+    getSelic();
+  }, []);
 
   const schema = yup.object().shape({
     period: yup
@@ -41,55 +47,61 @@ const Home = () => {
 
   return (
     <Background>
-      <VStack spacing={10}>
-        <Text fontSize={"3xl"} textAlign={"center"}>
-          Seja bem vindo(a),{" "}
-          <Text as={"span"} fontWeight={"bold"}>
-            {user}
-          </Text>
-        </Text>
-        <Text fontSize={"lg"} textAlign={"center"}>
-          Para efetuar uma simulação de investimento, basta digitar o valor
-          desejado e a quantidade de meses que deseja deixa o dinheiro
-          investindo.
-        </Text>
-        <Text data-testid="selic">
-          A taxa SELIC, no momento, é de {selic && selic.Selic}% a.a.
-        </Text>
-      </VStack>
+      {loading ? (
+        <Spinner size={"xl"} thickness={"3px"} color={"blue.300"} />
+      ) : (
+        <>
+          <VStack spacing={10}>
+            <Text fontSize={"3xl"} textAlign={"center"}>
+              Seja bem vindo(a),{" "}
+              <Text as={"span"} fontWeight={"bold"}>
+                {user}
+              </Text>
+            </Text>
+            <Text fontSize={"lg"} textAlign={"center"}>
+              Para efetuar uma simulação de investimento, basta digitar o valor
+              desejado e a quantidade de meses que deseja deixa o dinheiro
+              investindo.
+            </Text>
+            <Text data-testid="selic">
+              A taxa SELIC, no momento, é de {selic && selic.valor}% a.a.
+            </Text>
+          </VStack>
 
-      <VStack as={"form"} p={10} onSubmit={handleSubmit(submitSimulation)}>
-        <HStack>
-          <Input
-            name="period"
-            helperText="Meses para retirar"
-            label="Período"
-            error={errors.period}
-            icon={MdEditCalendar}
-            register={register}
-            type={"number"}
-            defaultValue={"1"}
-            data-testid="period"
-          />
-          <Input
-            name="value"
-            helperText="Valor a ser investido"
-            label="Valor"
-            error={errors.value}
-            icon={MdOutlineAttachMoney}
-            register={register}
-            type={"number"}
-            defaultValue={"100"}
-            data-testid="value"
-          />
-        </HStack>
-        <HStack spacing={5}>
-          <Button logout onClick={logout}>
-            Deslogar
-          </Button>
-          <Button type="submit">Enviar</Button>
-        </HStack>
-      </VStack>
+          <VStack as={"form"} p={10} onSubmit={handleSubmit(submitSimulation)}>
+            <HStack>
+              <Input
+                name="period"
+                helperText="Meses para retirar"
+                label="Período"
+                error={errors.period}
+                icon={MdEditCalendar}
+                register={register}
+                type={"number"}
+                defaultValue={"1"}
+                data-testid="period"
+              />
+              <Input
+                name="value"
+                helperText="Valor a ser investido"
+                label="Valor"
+                error={errors.value}
+                icon={MdOutlineAttachMoney}
+                register={register}
+                type={"number"}
+                defaultValue={"100"}
+                data-testid="value"
+              />
+            </HStack>
+            <HStack spacing={5}>
+              <Button logout onClick={logout}>
+                Deslogar
+              </Button>
+              <Button type="submit">Enviar</Button>
+            </HStack>
+          </VStack>
+        </>
+      )}
     </Background>
   );
 };

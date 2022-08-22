@@ -1,10 +1,15 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Result from ".";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Homepage tests", () => {
   test("should be able to render result page", async () => {
-    render(<Result />);
+    render(
+      <BrowserRouter>
+        <Result />
+      </BrowserRouter>
+    );
 
     const list = screen.getByRole("list");
 

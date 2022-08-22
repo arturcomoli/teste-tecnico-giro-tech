@@ -8,13 +8,16 @@ export interface SimulationProps {
 }
 
 export interface SelicProps {
-  Selic: string;
+  nome: string;
+  valor: number;
 }
 export interface InvestmentContextData {
   selic: SelicProps;
   simulation: SimulationProps;
+  loading: boolean;
   submitSimulation: (data: SimulationData) => void;
   normalizeStates: () => void;
+  getSelic: () => void;
 }
 
 export interface InvestmentProviderProps {

@@ -35,7 +35,7 @@ const Result = () => {
             <ListIcon as={MdCheckCircle} color={"blue.300"} />
             Período de{" "}
             <Text as={"span"} fontWeight={"bold"}>
-              {simulation && simulation.period} meses
+              {simulation && simulation.period} mes(es)
             </Text>
             ;
           </ListItem>
@@ -51,7 +51,7 @@ const Result = () => {
             <ListIcon as={MdCheckCircle} color={"blue.300"} />
             Investido a uma taxa de{" "}
             <Text as={"span"} fontWeight={"bold"}>
-              {selic && selic.Selic}% a.a.
+              {selic && selic.valor}% a.a.
             </Text>
           </ListItem>
           <ListItem>

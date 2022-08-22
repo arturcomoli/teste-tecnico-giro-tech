@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { SimulationData } from "../../pages/Home/home.interfaces";
@@ -16,29 +17,36 @@ const InvestmentContext = createContext<InvestmentContextData>(
 
 export const InvestmentProvider = ({ children }: InvestmentProviderProps) => {
   const navigate = useNavigate();
-  const [selic, setSelic] = useState<SelicProps>({ Selic: "" } as SelicProps);
+
+  const [selic, setSelic] = useState<SelicProps>({} as SelicProps);
   const [simulation, setSimulation] = useState<SimulationProps>(
     {} as SimulationProps
   );
+  const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    fetch("https://brasilapi.com.br/api/taxas/v1/Selic", {
-      mode: "no-cors",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => setSelic(res))
-      .catch((err) => console.log(err));
-  }, []);
+  const getSelic = () => {
+    setLoading(true);
+    axios
+      .get("https://brasilapi.com.br/api/taxas/v1")
+      .then((res) => {
+        const selic = res.data.find(
+          (item: SelicProps) => item.nome === "Selic"
+        );
+        setSelic(selic);
+        setLoading(false);
+      })
+      .catch((_) => setLoading(false));
+  };
+
+  // useEffect(() => {
+  //   getSelic();
+  // }, []);
 
   const submitSimulation = (data: SimulationData) => {
     const { period, value } = data;
-    const { Selic } = selic;
+    const { valor } = selic;
 
-    const investment = simulateInvestment({ Selic, value, period });
+    const investment = simulateInvestment({ selic: valor, value, period });
 
     setSimulation({ value, period, investment });
     toast.success("Simulação enviada");
@@ -52,7 +60,14 @@ export const InvestmentProvider = ({ children }: InvestmentProviderProps) => {
 
   return (
     <InvestmentContext.Provider
-      value={{ selic, submitSimulation, simulation, normalizeStates }}
+      value={{
+        selic,
+        submitSimulation,
+        simulation,
+        normalizeStates,
+        loading,
+        getSelic,
+      }}
     >
       {children}
     </InvestmentContext.Provider>

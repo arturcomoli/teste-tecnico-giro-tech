@@ -1,11 +1,11 @@
 import { SimulateInvestmentParams } from "./utils.interfaces";
 
 export const simulateInvestment = ({
-  Selic,
+  selic,
   value,
   period,
 }: SimulateInvestmentParams): number => {
-  const selicByMonth = Number(Selic) / (12 * 100);
+  const selicByMonth = Number(selic) / (12 * 100);
 
   const investment = Number(value) * selicByMonth * Number(period);
   const total = investment + Number(value);
