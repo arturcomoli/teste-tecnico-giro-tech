@@ -1,8 +1,8 @@
-import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { SimulationData } from "../../pages/Home/home.interfaces";
+import api from "../../services";
 import { simulateInvestment } from "../../utils";
 import {
   InvestmentContextData,
@@ -11,7 +11,7 @@ import {
   SimulationProps,
 } from "./investment.interfaces";
 
-const InvestmentContext = createContext<InvestmentContextData>(
+export const InvestmentContext = createContext<InvestmentContextData>(
   {} as InvestmentContextData
 );
 
@@ -26,8 +26,8 @@ export const InvestmentProvider = ({ children }: InvestmentProviderProps) => {
 
   const getSelic = () => {
     setLoading(true);
-    axios
-      .get("https://brasilapi.com.br/api/taxas/v1")
+    api
+      .get("/taxas/v1")
       .then((res) => {
         const selic = res.data.find(
           (item: SelicProps) => item.nome === "Selic"

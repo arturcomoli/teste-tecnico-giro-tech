@@ -1,46 +1,109 @@
-# Getting Started with Create React App
+<h1 align="center">
+    <a href="https://teste-tecnico-giro-tech.vercel.app/">Desafio Técnico Giro.Tech</a>
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h3 align="center">Trata-se de uma aplicação simples que tem como objetivo calcular um investimento em que o usuário fornece o valor investido e o período de tempo que se deseja aplicar. A taxa de juros utilizada é a Selic, que é resgatada via <a href="https://brasilapi.com.br/api/taxas/v1/">API</a></h3>
 
-## Available Scripts
+<br/>
 
-In the project directory, you can run:
+### ✅ Features da aplicação
 
-### `npm start`
+- [x] Login (basta digitar algum login e senha, é tudo local, nenhum dado é enviado para nenhuma API);
+- [x] Visualizar a taxa Selic antes de fazer a simulação
+- [x] Inserir o valor e período desejados;
+- [x] Visualizar todos os valores inseridos, mais a taxa, além do valor retornado após o período de investimento;
+- [x] Logout;
+- [x] Proteção de rotas (usuário deslogado não consegue acessar a aplicação e usuário logadonão consegue acessar a página de login);
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br/>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### ✅ Link para a demo da aplicação
 
-### `npm test`
+- [x] <a href="https://teste-tecnico-giro-tech.vercel.app/">Live Demo</a>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br/>
 
-### `npm run build`
+#### 🏠 Login
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Login](https://user-images.githubusercontent.com/91695244/185932422-8d8fb00c-8340-4c55-ab80-1104f6c0d178.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 🏠 Homepage
 
-### `npm run eject`
+![Homepage](https://user-images.githubusercontent.com/91695244/185932625-478577f1-e481-467c-83cd-9ca2f5e851a9.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<br/>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### ✅ Resultado
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![Resultado](https://user-images.githubusercontent.com/91695244/185932738-609ce723-0b88-4012-b28e-8a84ddb373e3.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br/>
 
-## Learn More
+### ✅ Como rodar a aplicação localmente
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Antes de tudo, você precisa das seguintes tecnologias:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [x] [Git](https://git-scm.com)
+- [x] [NPM](https://www.npmjs.com/)
+- [x] Algum editor de códigos, no meu caso, utilizo o [VSCode](https://code.visualstudio.com/)
+
+<br/>
+
+### 🎲 Preparando o ambiente
+
+```bash
+# Faça o clone deste repositório
+
+$ git clone git@github.com:arturcomoli/teste-tecnico-giro-tech.git
+
+
+# Entre na raiz do repositório clonado
+
+$ cd teste-tecnico-giro-tech
+
+# Instale as dependências da aplicação
+
+$ npm install
+
+# Rode a aplicação por meio do script abaixo
+
+$ npm start
+
+# Prontinho, será aberta uma página no seu navegador com a aplicação rodando localmente
+```
+
+### 🎲 Executando os testes
+
+Após clonar o repositório e entrar em sua raíz (conforme descrito acima), siga os passos abaixo:
+
+```bash
+
+$ npm test -- --watchAll
+
+```
+
+### 🛠 Principais tecnologias utilizadas
+
+- [CRA](https://create-react-app.dev/) - Criação do React App
+- [Chakra UI](https://chakra-ui.com/) - Aplicação de estilos na aplicação
+- [Axios](https://axios-http.com/ptbr/docs/intro) - Gerenciamento de requisições HTTP
+- [React Hot Toast](https://react-hot-toast.com/) - Feedback de erros ao usuário
+- [React Router Dom](https://reactrouter.com/) - Roteamento das páginas da aplicação
+- Outras bibliotecas que auxiliaram no desenvolvimento podem ser encontradas na seção: `"dependencies"` e `"devDependencies"` no arquivo `package.json`, no diretório relacionado ao frontend
+
+<br/>
+
+### ✅ Desenvolvedor responsável - Artur Comoli
+
+<img src="https://avatars.githubusercontent.com/u/91695244?v=4" alt="Artur Comoli" style="border-radius: 50%" width="120px"/>
+
+<br/>
+
+Entre em contato!
+
+<div>
+    <a href = "mailto:artur.comoli@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"/>
+    <a href="https://www.linkedin.com/in/artur-comoli" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"/>     
+</div>

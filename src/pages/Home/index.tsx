@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { HStack, Spinner, Text, VStack } from "@chakra-ui/react";
 
 import * as yup from "yup";
