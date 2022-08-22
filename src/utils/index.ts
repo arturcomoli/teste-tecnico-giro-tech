@@ -1,12 +1,14 @@
 import { SimulateInvestmentParams } from "./utils.interfaces";
 
 export const simulateInvestment = ({
-  selic,
+  Selic,
   value,
   period,
 }: SimulateInvestmentParams): number => {
-  const selicByMonth = Number(selic) / 12;
-  const investment = Number(value) * selicByMonth * Number(period);
+  const selicByMonth = Number(Selic) / (12 * 100);
 
-  return investment + Number(value);
+  const investment = Number(value) * selicByMonth * Number(period);
+  const total = investment + Number(value);
+
+  return +total.toFixed(2);
 };

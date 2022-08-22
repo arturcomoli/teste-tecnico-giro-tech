@@ -3,6 +3,7 @@ import { extendTheme } from "@chakra-ui/react";
 const global = {
   body: {
     bg: "gray.200",
+    color: "purple.700",
   },
 };
 

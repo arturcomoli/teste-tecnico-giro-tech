@@ -54,6 +54,7 @@ const Login = () => {
           error={errors.email}
           icon={AiOutlineMail}
           register={register}
+          placeholder={"john@doe.com"}
         />
         <Input
           name={"password"}
@@ -63,6 +64,7 @@ const Login = () => {
           error={errors.password}
           icon={MdPassword}
           register={register}
+          placeholder={"******"}
         />
         <Button type={"submit"}>Enviar</Button>
       </VStack>

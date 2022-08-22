@@ -6,6 +6,8 @@ import { simulateInvestment } from "../../utils";
 import {
   InvestmentContextData,
   InvestmentProviderProps,
+  SelicProps,
+  SimulationProps,
 } from "./investment.interfaces";
 
 const InvestmentContext = createContext<InvestmentContextData>(
@@ -14,35 +16,44 @@ const InvestmentContext = createContext<InvestmentContextData>(
 
 export const InvestmentProvider = ({ children }: InvestmentProviderProps) => {
   const navigate = useNavigate();
-  const [selic, setSelic] = useState<string>("");
-  const [simulation, setSimulation] = useState<number>(0);
+  const [selic, setSelic] = useState<SelicProps>({ Selic: "" } as SelicProps);
+  const [simulation, setSimulation] = useState<SimulationProps>(
+    {} as SimulationProps
+  );
 
-  //   useEffect(() => {
-
-  //     fetch("https://brasilapi.com.br/api/taxas/v1/Selic", {
-  //       mode: "no-cors",
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //       .then((res) => res.json())
-  //       .then((res) => setSelic(res))
-  //       .catch((err) => console.log(err));
-  //   }, []);
-
-  console.log(selic);
+  useEffect(() => {
+    fetch("https://brasilapi.com.br/api/taxas/v1/Selic", {
+      mode: "no-cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => setSelic(res))
+      .catch((err) => console.log(err));
+  }, []);
 
   const submitSimulation = (data: SimulationData) => {
     const { period, value } = data;
-    const investment = simulateInvestment({ selic, value, period });
+    const { Selic } = selic;
 
-    setSimulation(investment);
+    const investment = simulateInvestment({ Selic, value, period });
+
+    setSimulation({ value, period, investment });
+    toast.success("Simulação enviada");
     navigate("/result");
   };
 
+  const normalizeStates = () => {
+    setSimulation({} as SimulationProps);
+    setSelic({} as SelicProps);
+  };
+
   return (
-    <InvestmentContext.Provider value={{ selic, submitSimulation, simulation }}>
+    <InvestmentContext.Provider
+      value={{ selic, submitSimulation, simulation, normalizeStates }}
+    >
       {children}
     </InvestmentContext.Provider>
   );

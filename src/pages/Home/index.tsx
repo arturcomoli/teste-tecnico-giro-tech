@@ -14,8 +14,8 @@ import { SimulationData } from "./home.interfaces";
 import { useInvestment } from "../../providers/Investment";
 
 const Home = () => {
-  const { user } = useAuth();
-  const { submitSimulation, selic } = useInvestment();
+  const { user, handleLogout } = useAuth();
+  const { submitSimulation, selic, normalizeStates } = useInvestment();
 
   const schema = yup.object().shape({
     period: yup
@@ -33,7 +33,12 @@ const Home = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SimulationData>({ resolver: yupResolver(schema) });
-  console.log(errors);
+
+  const logout = () => {
+    handleLogout();
+    normalizeStates();
+  };
+
   return (
     <Background>
       <VStack spacing={10}>
@@ -48,7 +53,9 @@ const Home = () => {
           desejado e a quantidade de meses que deseja deixa o dinheiro
           investindo.
         </Text>
-        <Text>A taxa SELIC, no momento, é de % a.a.</Text>
+        <Text data-testid="selic">
+          A taxa SELIC, no momento, é de {selic && selic.Selic}% a.a.
+        </Text>
       </VStack>
 
       <VStack as={"form"} p={10} onSubmit={handleSubmit(submitSimulation)}>
@@ -62,6 +69,7 @@ const Home = () => {
             register={register}
             type={"number"}
             defaultValue={"1"}
+            data-testid="period"
           />
           <Input
             name="value"
@@ -72,9 +80,15 @@ const Home = () => {
             register={register}
             type={"number"}
             defaultValue={"100"}
+            data-testid="value"
           />
         </HStack>
-        <Button type={"submit"}>Enviar</Button>
+        <HStack spacing={5}>
+          <Button logout onClick={logout}>
+            Deslogar
+          </Button>
+          <Button type="submit">Enviar</Button>
+        </HStack>
       </VStack>
     </Background>
   );
